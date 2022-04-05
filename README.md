@@ -1,4 +1,4 @@
-# Modular Maze Navigator
+# Modular Maze Navigator :robot: 
 
 ### Detection of 3D-Maze
 using live webcam feed of maze to analyze maze layout
