@@ -1,6 +1,3 @@
-from pip import main
-
-
 import maze_detection as d
 import visualizer as v
 import controller as c
