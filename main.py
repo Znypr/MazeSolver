@@ -1,25 +1,23 @@
-import neural as n
-import entities as nt
-import numpy as np
+from pip import main
+
+
+import maze_detection as d
+import visualizer as v
+import controller as c
+import solver as s
 
 if __name__ == "__main__":
 
-    dim = [3, 2]
-    cells = [
-        [nt.Cell(1, 0, 0, 1),
-         nt.Cell(0, 0, 1, 0)],
-        [nt.Cell(1, 0, 1, 0),
-         nt.Cell(1, 1, 1, 0)],
-        [nt.Cell(1, 0, 0, 0),
-         nt.Cell(0, 1, 0, 1)]
-    ]
+    # Detection
+    # maze, pos = d.detect()
 
-    maze = nt.Maze(dim, cells)
-    agent = nt.Agent(0, 1)
+    # Solver
+    # actions = s.solve(maze, pos)
 
-    engine = n.Neural(maze, agent)
+    # Visualize
+    # v.show(maze, pos, actions)
 
-    engine.move(0, -1)
-    engine.move(moves=[1, 0, 1, 0, 0, 1, -1, 0])
+    # Control
+    # c.move(actions)
 
     0
