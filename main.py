@@ -15,7 +15,7 @@ if __name__ == "__main__":
     # actions = s.solve(maze, pos)
 
     # Visualize
-    # v.show(maze, pos, actions)
+    # v.visualize(maze, pos, actions)
 
     # Control
     # c.move(actions)
