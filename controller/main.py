@@ -3,25 +3,26 @@ from pybricks.ev3devices import Motor
 from pybricks.parameters import Port
 from pybricks.robotics import DriveBase
 
-# Initialize the EV3 Brick.
-ev3 = EV3Brick()
 
-# Initialize the motors.
-left_motor = Motor(Port.B)
-right_motor = Motor(Port.C)
+class Controller:
 
-# Initialize the drive base.
-robot = DriveBase(left_motor, right_motor, wheel_diameter=55, axle_track=135)
-unit = 50
+    ev3 = EV3Brick()
 
-def drive():
-    robot.straight(unit)
+    left_motor = Motor(Port.B)
+    right_motor = Motor(Port.C)
 
-def left():
-    robot.turn(90)
+    robot = DriveBase(left_motor, right_motor,
+                      wheel_diameter=55, axle_track=135)
+    unit = 50
 
-def right():
-    robot.turn(-90)
+    def forward(self):
+        self.robot.straight(self.unit)
 
-def reverse():
-    robot.straight(-unit)
+    def left(self):
+        self.robot.turn(90)
+
+    def right(self):
+        self.robot.turn(-90)
+
+    def backwards(self):
+        self.robot.straight(-self.unit)

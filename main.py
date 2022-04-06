@@ -1,6 +1,6 @@
 import maze_detection as d
 import visualizer.visualize as v
-import controller as c
+import controller.main as c
 import solver as s
 import solver.entities as nt
 
@@ -27,9 +27,10 @@ if __name__ == "__main__":
 
     maze = nt.Maze(dim, cells)
 
-    v.visualize(maze)
+    # v.visualize(maze)
 
     # Control
-    # c.move(actions)
+    drive = c.Controller()
+    drive.forward()
 
     0
