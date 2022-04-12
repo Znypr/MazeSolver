@@ -26,3 +26,7 @@ class Controller:
 
     def backwards(self):
         self.robot.straight(-self.unit)
+
+
+c = Controller()
+c.forward()
