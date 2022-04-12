@@ -1,8 +1,11 @@
+from controller import move
 import maze_detection as d
-import visualizer.visualize as v
-import controller.main as c
+#import visualizer.visualize as v
 import solver as s
 import solver.entities as nt
+
+import sys
+sys.path.append("../controller")
 
 if __name__ == "__main__":
 
@@ -25,12 +28,12 @@ if __name__ == "__main__":
          nt.Cell(0, 1, 0, 1)]
     ]
 
-    maze = nt.Maze(dim, cells)
+    #maze = nt.Maze(dim, cells)
 
     # v.visualize(maze)
 
     # Control
-    drive = c.Controller()
-    drive.forward()
+
+    move("f")
 
     0
