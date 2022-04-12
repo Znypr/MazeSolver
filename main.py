@@ -1,11 +1,9 @@
-from controller import move
 import maze_detection as d
 #import visualizer.visualize as v
 import solver as s
 import solver.entities as nt
 
-import sys
-sys.path.append("../controller")
+from controller import control as c
 
 if __name__ == "__main__":
 
@@ -33,7 +31,6 @@ if __name__ == "__main__":
     # v.visualize(maze)
 
     # Control
-
-    move("f")
+    c.move(['f', 'r', 'f'])
 
     0
