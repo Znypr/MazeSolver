@@ -1,9 +1,18 @@
+import os
+import sys
+path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(path)
+import controller.main as c
+
+
+
 import maze_detection as d
 #import visualizer.visualize as v
 import solver as s
 import solver.entities as nt
 
-from controller import control as c
+
+# import ../db.py
 
 if __name__ == "__main__":
 
@@ -31,6 +40,6 @@ if __name__ == "__main__":
     # v.visualize(maze)
 
     # Control
-    c.move(['f', 'r', 'f'])
+    #c.move(['f', 'r', 'f'])
 
     0
