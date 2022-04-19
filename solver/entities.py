@@ -11,6 +11,9 @@ class Cell:
     def get_info(self):
         return "{} up\n{} right\n{} down\n{} left".format(self.up, self.right, self.down, self.left)
 
+    def get_walls(self):
+        return [self.up, self.right, self.down, self.left]
+
     def __init__(self, up, right, down, left):
         self.up = up
         self.right = right

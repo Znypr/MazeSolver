@@ -26,8 +26,27 @@ if __name__ == "__main__":
     ]
 
     maze = nt.Maze(dim, cells)
+    agent = nt.Agent(1, 1)
 
-    v.visualize(maze)
+    v.visualize(maze, agent)
+
+    agent = nt.Agent(0, 1)
+    v.updateAgent(agent)
+
+    agent = nt.Agent(0, 0)
+    v.updateAgent(agent)
+
+    agent = nt.Agent(1, 0)
+    v.updateAgent(agent)
+
+    agent = nt.Agent(2, 0)
+    v.updateAgent(agent)
+
+    agent = nt.Agent(2, 1)
+    v.updateAgent(agent)
+    
+    agent = nt.Agent(2, 2)
+    v.updateAgent(agent)
 
     # Control
     # c.move(actions)
