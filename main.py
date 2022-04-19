@@ -40,6 +40,7 @@ if __name__ == "__main__":
     # v.visualize(maze)
 
     # Control
-    #c.move(['f', 'r', 'f'])
+    c.move(['f', 'r', 'f'])
+    
 
     0
