@@ -19,4 +19,4 @@ using -lib- to show agents actions and progress over time
 give moving instructions to agent 
 
 (host): mobaXterm (ssh connection to ev3), etcher (ev3 img flasher), ev3dev
-(ev3): rpyc, python (2.7.13)
+(ev3): rpyc (4.1.15), python (2.7.13)

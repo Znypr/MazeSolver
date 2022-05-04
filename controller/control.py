@@ -3,7 +3,10 @@ import rpyc
 # Create a RPyC connection to the remote ev3dev device.
 # Use the hostname or IP address of the ev3dev device.
 # If this fails, verify your IP connectivty via ``ping X.X.X.X``
-conn = rpyc.classic.connect('X.X.X.X')
+
+print("Connecting to EV3...")
+conn = rpyc.classic.connect('169.254.25.7')
+print("Connected!")
 
 # import ev3dev2 on the remote ev3dev device
 motor = conn.modules['ev3dev2.motor']
