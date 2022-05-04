@@ -18,4 +18,5 @@ using -lib- to show agents actions and progress over time
 ### 🤖 Controlling MindStorm EV3 to navigate through maze
 give moving instructions to agent 
 
-: rpyc
+(host): mobaXterm, etcher, ev3dev
+(ev3): rpyc
