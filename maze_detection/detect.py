@@ -77,40 +77,94 @@ def order_points(points):
 
     return rect
 
+def detect_walls(img):
+    imgBlue =  img[:,:,0]
+    imgGreen = img[:,:,1]
+    imgRed = img [:,:,2]
+
+    imgBin = np.logical_and(np.logical_and(np.logical_or(np.logical_or(imgBlue < 200, imgRed < 200), imgGreen < 200), imgRed > 1.35 * imgBlue), imgBlue > 65).astype(np.uint8)
+
+    return imgBin
+
+def sumUpImage(img):
+    sumX = np.zeros(img.shape[1])
+    sumY = np.zeros(img.shape[0])
+
+    for index, line in enumerate(img):
+        sumY[index] = np.sum(line)
+
+    for index, column in enumerate(img.transpose()):
+        sumX[index] = np.sum(column)
+
+    return (sumX, sumY)
+
+def calculateLabDims(img):
+    sumX, sumY = sumUpImage(imgBin)
+
+    sumX = sumX > 150
+    sumY = sumY > 150
+
+    dimX = 0
+    dimY = 0
+
+    for i in range(sumX.shape[0]-1):
+        if(sumX[i+1] and sumX[i]):
+            sumX[i] = False
+
+    for column in sumX:
+        if column:
+            dimX += 1
+
+    for i in range(sumY.shape[0]-1):
+        if(sumY[i+1] and sumY[i]):
+            sumY[i] = False
+
+    for row in sumY:
+        if row:
+            dimY += 1
+
+    dimX -= 1
+    dimY -= 1
+
+    return (dimX, dimY)
+
 img = np.array(cv.imread('media\images\maz3.jpg'))
 img = cv.resize(img, (int(img.shape[1]/2), int(img.shape[0]/2)), interpolation = cv.INTER_AREA)
-refPoints = np.array([(376, 42), (1221, 45), (310,719), (1281, 716)])
 
+#show initial labyrinth
 cv.imshow("image", img)
-#register event for displaying coordinates on click
 cv.setMouseCallback('image', click_event)
 k = cv.waitKey(0)
 
+refPoints = np.array([(376, 42), (1221, 45), (310,719), (1281, 716)])
 img = correct_perspective(img, refPoints)
 
-"""cv.imwrite('media\output\mazeCompressed.jpg', img)"""
+#show labyrinth with corrected perspective
 cv.imshow("image", img)
 k = cv.waitKey(0)
 
-imgBlue =  img[:,:,0]
-imgGreen = img[:,:,1]
-imgRed = img [:,:,2]
+img = cv.medianBlur(img, 5)
 
-imgBin = np.logical_and(np.logical_and(imgRed < imgGreen*1.5, imgBlue * 1.35 < imgRed), imgRed + imgGreen > 220).astype(np.uint8)
-
-imgBin = (imgBin * 255) 
-
-cv.imshow("image", imgBin)
+#show blurred image
+cv.imshow("image", img)
 k = cv.waitKey(0)
 
-"""
-cv.imshow("Display window", img)
+imgBin = detect_walls(img)
+
+#show binary image of walls
+cv.imshow("image", imgBin*255)
 k = cv.waitKey(0)
-cv.imshow("Display window", imgBlue)
+
+imgBin = cv.medianBlur(imgBin, 9)
+
+#show blurred binary image of walls
+cv.imshow("image", imgBin*255)
 k = cv.waitKey(0)
-cv.imshow("Display window", imgGreen)
-k = cv.waitKey(0)
-cv.imshow("Display window", imgRed)
-k = cv.waitKey(0)
-cv.imshow("Display window", imgBin)
-k = cv.waitKey(0) """
+
+dims = calculateLabDims(imgBin)
+print(dims)
+
+cells = np.empty(dims[])
+for i in range(dims[1]):
+    for j in range(dims[0]):
+        
