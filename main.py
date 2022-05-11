@@ -1,7 +1,6 @@
 import maze_detection as d
 import visualizer.visualize as v
-import controller as c
-import solver as s
+import solver.solve as s
 import solver.entities as nt
 
 if __name__ == "__main__":
@@ -47,6 +46,10 @@ if __name__ == "__main__":
     
     agent = nt.Agent(2, 2)
     v.updateAgent(agent)
+
+    exits = s.find_exits(maze)
+    for exit in exits:
+        print(exit.get_position(), exit.get_exits())
 
     # Control
     # c.move(actions)

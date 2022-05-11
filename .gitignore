@@ -3,3 +3,7 @@ visualizer/__pycache__/visualize.cpython-310.pyc
 solver/__pycache__/entities.cpython-310.pyc
 solver/__pycache__/entities.cpython-310.pyc
 solver/__pycache__/entities.cpython-310.pyc
+solver/__pycache__/solve.cpython-310.pyc
+solver/__pycache__/entities.cpython-310.pyc
+solver/__pycache__/entities.cpython-310.pyc
+*.pyc
