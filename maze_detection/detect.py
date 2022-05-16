@@ -1,5 +1,6 @@
 import cv2 as cv
 import numpy as np
+import solver.entities as nt
 
 def click_event(event, x, y, flags, params):
  
@@ -164,7 +165,45 @@ k = cv.waitKey(0)
 dims = calculateLabDims(imgBin)
 print(dims)
 
-cells = np.empty(dims[])
+cells = np.empty(dims)
+print(cells)
+
+#calculate how large the cells are by dividing the image dimensions by the number of cells
+cellWidth = imgBin.shape[1] / dims[0]
+cellHeight = imgBin.shape[0] / dims[1]
+
+print(cellWidth, cellHeight)
+
+#run through all cells and look at their middle point in the image
 for i in range(dims[1]):
+    yPos = int(cellHeight/2 + cellHeight * i)
     for j in range(dims[0]):
+        xPos = int(cellWidth/2 + cellWidth * j)
+
+        #from the middle point of the cell check towards all sides in order to find walls
+
+        #top
+        startTop = yPos - int(cellHeight * 0.6)
+        if(startTop < 0): startTop = 0
+        topPoints = imgBin[startTop:yPos, xPos]
+        topWall = topPoints.sum() > 0
         
+        #right
+        endRight = xPos + int(cellWidth * 0.6)
+        if(endRight >= imgBin.shape[1]): endRight = imgBin.shape[1] - 1
+        rightPoints = imgBin[yPos, xPos:endRight]
+        rightWall = rightPoints.sum() > 0
+
+        #bottom
+        endBottom = yPos + int(cellHeight * 0.6)
+        if(endBottom >= imgBin.shape[0]): endBottom = imgBin.shape[0] -1
+        bottomPoints = imgBin[yPos: endBottom, xPos]
+        bottomWall = bottomPoints.sum() > 0
+
+        #left
+        startLeft = xPos - int(cellWidth * 0.6)
+        if(startLeft < 0): startLeft = 0
+        leftPoints = imgBin[yPos, startLeft:xPos]
+        leftWall = leftPoints.sum() > 0
+
+        cells[j, i] = nt.Cell(topWall, rightWall, bottomWall, leftWall)
