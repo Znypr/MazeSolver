@@ -1,18 +1,15 @@
-#!/usr/bin/env pybricks-micropython
-
-import solver as s
-import maze_detection as d
-import os
 import sys
+import os
 import csv
-path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(path)
+
+import controller.control as c
+import maze_detection as d
+import solver as s
+
 
 
 #import visualizer.visualize as v
 
-
-# import ../db.py
 
 if __name__ == "__main__":
 
@@ -30,10 +27,4 @@ if __name__ == "__main__":
     # v.visualize(maze)
 
     # Control
-    actions = ['stop']
-
-    with open('../controller/actions.csv', 'w') as file:
-        writer = csv.writer(file)
-        writer.writerow(actions)
-
-    0
+    c.test()

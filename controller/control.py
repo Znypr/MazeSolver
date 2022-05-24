@@ -1,22 +1,43 @@
 import rpyc
+print('Connecting to server...')
+conn = rpyc.classic.connect('ev3dev')  # host name or IP address of the EV3
+print('Connected.')
 
-# Create a RPyC connection to the remote ev3dev device.
-# Use the hostname or IP address of the ev3dev device.
-# If this fails, verify your IP connectivty via ``ping X.X.X.X``
+ev3 = conn.modules['ev3dev.ev3']
 
-print("Connecting to EV3...")
-conn = rpyc.classic.connect('169.254.25.7')
-print("Connected!")
+right = ev3.LargeMotor('outB')
+left = ev3.LargeMotor('outC')
 
-# import ev3dev2 on the remote ev3dev device
-motor = conn.modules['ev3dev2.motor']
-sensor = conn.modules['ev3dev2.sensor']
-sensor_lego = conn.modules['ev3dev2.sensor.lego']
 
-# Use the LargeMotor
-left = motor.LargeMotor(motor.OUTPUT_B)
-right = motor.LargeMotor(motor.OUTPUT_C)
+def forward():
+    right.run_forever(speed_sp=500)
+    left.run_forever(speed_sp=500)
 
-base = motor.MoveTank(left, right)
 
-base.on_for_seconds(20, 20, 1)
+def backward():
+    right.run_forever(speed_sp=-500)
+    left.run_forever(speed_sp=-500)
+
+
+def stop():
+    right.stop()
+    left.stop()
+
+
+def left_turn():
+    right.run_forever(speed_sp=500)
+    left.run_forever(speed_sp=-500)
+
+
+def right_turn():
+    right.run_forever(speed_sp=-500)
+    left.run_forever(speed_sp=500)
+
+
+def move():
+    forward()
+    stop()
+
+
+def test():
+    print('Testing...')
