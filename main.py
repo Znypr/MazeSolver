@@ -7,7 +7,6 @@ import maze_detection as d
 import solver as s
 
 
-
 #import visualizer.visualize as v
 
 
@@ -27,4 +26,6 @@ if __name__ == "__main__":
     # v.visualize(maze)
 
     # Control
-    c.test()
+    path = []
+
+    c.move(path)
