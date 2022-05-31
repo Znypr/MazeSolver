@@ -26,6 +26,6 @@ if __name__ == "__main__":
     # v.visualize(maze)
 
     # Control
-    path = []
+    path = ['r', 'r', 'f', 'l', 'l', 'f']
 
     c.move(path)
