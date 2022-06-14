@@ -38,14 +38,13 @@ if __name__ == "__main__":
     agent = nt.Agent(2, 0)
 
     v.visualize(maze, agent)
-
     exits = s.find_exits(maze)
 
     s.set_lab_weights(maze, exits)
 
     s.escape_maze(maze, agent)
-
+    
     # Control
-    p1 = convert([0, 0, -1, 0])
+    #p1 = convert([0, 0, -1, 0])
     # c.establish_connection()
     # c.move(p1)
