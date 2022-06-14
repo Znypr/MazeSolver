@@ -3,6 +3,11 @@ from ev3dev2.sensor.lego import GyroSensor
 import rpyc
 import math
 
+
+DIAMETER = 12.1
+WHEEL_RADIUS = 17.8
+
+
 def establish_connection():
 
     print('Connecting to server...')
@@ -15,11 +20,6 @@ def establish_connection():
     right = ev3_motor.LargeMotor(ev3_motor.OUTPUT_C)
 
     base = ev3_motor.MoveTank(OUTPUT_B, OUTPUT_C)
-
-
-
-DIAMETER = 12.1
-WHEEL_RADIUS = 17.8
 
 
 def get_rotation_distance(degrees):
