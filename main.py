@@ -8,8 +8,6 @@ import os
 import csv
 import math
 
-#import visualizer.visualize as v
-
 def convert(path):
     instructions = []
     for move in path:
@@ -48,4 +46,5 @@ if __name__ == "__main__":
 
 
     # Control
+    p1=convert([0,0,-1,0])
     c.move(p1)
