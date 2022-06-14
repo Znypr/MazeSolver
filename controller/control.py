@@ -1,5 +1,4 @@
 from ev3dev2.motor import LargeMotor, OUTPUT_B, OUTPUT_C, SpeedPercent, MoveTank
-from ev3dev2.sensor.lego import GyroSensor
 import rpyc
 import math
 
