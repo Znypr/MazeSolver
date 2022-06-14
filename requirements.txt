@@ -1,0 +1,2 @@
+opencv-python
+rpyc==3.3.0
