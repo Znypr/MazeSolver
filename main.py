@@ -15,13 +15,15 @@ if __name__ == "__main__":
     # v.visualize(maze, pos, actions)
 
     maze = d.detect_lab('media\images\maz3.jpg')
-    agent = nt.Agent(1, 1)
+    agent = nt.Agent(2,0)
 
     v.visualize(maze, agent)
 
     exits = s.find_exits(maze)
 
-    s.det_q_learn(maze, exits)
+    s.set_lab_weights(maze, exits)
+
+    s.escape_maze(maze, agent)
 
 
     # Control
