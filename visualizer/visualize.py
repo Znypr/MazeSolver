@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+import numpy as np
 
 wallWidth = 12
 cellDims = 200
@@ -42,7 +43,7 @@ def visualize(maze, agent):
     
     agentPoint = (agent.x * (wallLength + wallWidth) + cellDims / 2, agent.y * (wallLength + wallWidth) + cellDims / 2)
     
-    playerRef = window["GRAPH"].draw_point( agentPoint, size=playerDims, color="red")
+    playerRef = window["GRAPH"].draw_point( agentPoint, size=playerDims, color="black")
 
     window.read(1000)
 
@@ -59,5 +60,52 @@ def updateAgent(agent):
 
     lastAgentX = agent.x
     lastAgentY = agent.y
-    playerRef = window["GRAPH"].draw_point( agentPoint, size=playerDims, color="red")
+    playerRef = window["GRAPH"].draw_point( agentPoint, size=playerDims, color="black")
     window.read(1000)
+
+def color_cells(maze):
+    global window
+    global playerRef
+
+    cells = maze.cells
+    dims = maze.dim
+    weights = np.zeros(dims)
+    for ir, row in enumerate(cells):
+        row_weights = [cell.weight for cell in row]
+        weights[ir] = row_weights
+
+    max_weight = np.amax(weights)
+
+    for i_row, row in enumerate(cells):
+        for i_cell, cell in enumerate(row):
+            cell_weight = cell.weight
+            if(cell_weight >= 0):
+                color = (2.0 * cell_weight/max_weight, 2.0 * ( 1 - cell_weight/max_weight), 0)
+            else:
+                color = (1, 1, 1)
+
+            cell_middle_point = (i_row * (wallLength + wallWidth) + cellDims/2, i_cell * (wallLength + wallWidth) + cellDims/2)
+
+            top_left = (cell_middle_point[0] - wallLength/2, cell_middle_point[1] - wallLength/2)
+            bottom_right = (cell_middle_point[0] + wallLength/2, cell_middle_point[1] + wallLength/2)
+
+            color = to_hex(color[0], color[1], color[2])
+            cell = window["GRAPH"].draw_rectangle(top_left, bottom_right, fill_color = color, line_width = 0)
+
+    window["GRAPH"].bring_figure_to_front(playerRef)
+    window.read(3000)
+
+def to_hex(r, g, b):
+    values = np.array([r,g,b])
+    values *= 255
+    values = np.clip(values, 0, 255)
+    hex =  ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+    output =  '#'
+    for value in values:
+        output += hex[int(value/16)] + hex[int(value%16)]
+    return output
+
+
+
+
+        

@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 
 class Cell:
@@ -8,25 +9,27 @@ class Cell:
     down = 0
     left = 0
 
+    def set_weight(self, weight):
+        self.weight = weight
+
     def get_info(self):
         return "{} up\n{} right\n{} down\n{} left".format(self.up, self.right, self.down, self.left)
 
     def get_walls(self):
         return [self.up, self.right, self.down, self.left]
 
-    def __init__(self, up, right, down, left):
+    def get_position(self):
+        return self.position
+
+    def __init__(self, up, right, down, left, x, y):
+        self.position = [x, y]
+        self.weight = -1
         self.up = up
         self.right = right
         self.down = down
         self.left = left
 
 class Exit:
-
-    position = [0, 0]
-    up = 0
-    right = 0
-    down = 0
-    left = 0
 
     def get_position(self):
         return self.position
@@ -36,6 +39,7 @@ class Exit:
 
 
     def __init__(self, x, y, exits):
+        self.position = [0, 0]
         self.position[0] = x
         self.position[1] = y
         self.up = exits[0]

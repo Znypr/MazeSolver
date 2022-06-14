@@ -1,4 +1,5 @@
 import solver.entities as nt
+import visualizer.visualize as v
 import numpy as np
 
 def find_exits(maze):
@@ -23,3 +24,41 @@ def find_exits(maze):
                 exit_cells.append(nt.Exit(i_column, i_row, exits))
     
     return exit_cells
+
+def det_q_learn(maze, exits):
+    cells = maze.cells
+    current_cells = []
+    weight = 1
+
+    dims = maze.dim
+    x_maze = dims[0]
+    y_maze = dims[1]
+
+    for exit in exits:
+        pos = exit.get_position()
+        current_cells.append(cells[pos[0]][pos[1]])
+
+    changed = True
+
+    while(changed):
+        changed = False
+        new_cells = []
+        for cell in current_cells:
+            cell.set_weight(weight)
+            pos = cell.get_position()
+            x = pos[0]
+            y = pos[1]
+
+            for i, pos in enumerate([(x-1,y),(x,y-1),(x+1,y),(x,y+1)]):
+                if(0 <= pos[0] < x_maze and 0 <= pos[1] < y_maze):
+                    if(cell.left == False and i == 0 or cell.up == False and i == 1 or cell.right == False and i == 2 or cell.down == False and i == 3):
+                        new_cell = cells[pos[0]][pos[1]]
+                        if(new_cell.weight < 0):
+                            new_cells.append(new_cell)
+                            changed = True
+
+        current_cells = new_cells
+        weight += 1
+        v.color_cells(maze)
+    
+        
