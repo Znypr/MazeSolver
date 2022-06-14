@@ -40,6 +40,4 @@ if __name__ == "__main__":
     # v.visualize(maze)
 
     # Control
-    p1 = convert([0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1])
-    p2 = convert([0,0,-1, 0,-1, 0])
-    c.move(p2)
+    c.move(p1)
