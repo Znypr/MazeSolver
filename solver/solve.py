@@ -25,7 +25,7 @@ def find_exits(maze):
     
     return exit_cells
 
-def det_q_learn(maze, exits):
+def set_lab_weights(maze, exits):
     cells = maze.cells
     current_cells = []
     weight = 1
@@ -61,4 +61,31 @@ def det_q_learn(maze, exits):
         weight += 1
         v.color_cells(maze)
     
-        
+def escape_maze(maze, agent):
+    cells = maze.cells
+
+    dims = maze.dim
+    x_maze = dims[0]
+    y_maze = dims[1]
+
+    x = agent.x
+    y = agent.y
+    agent_cell = cells[x][y]
+    agent_weight = agent_cell.weight
+
+    while(agent_weight > 1):
+        for i, pos in enumerate([(x-1,y),(x,y-1),(x+1,y),(x,y+1)]):
+                if(0 <= pos[0] < x_maze and 0 <= pos[1] < y_maze):
+                    if(agent_cell.left == False and i == 0 or agent_cell.up == False and i == 1 or agent_cell.right == False and i == 2 or agent_cell.down == False and i == 3):
+                        new_cell = cells[pos[0]][pos[1]]
+                        if(new_cell.weight < agent_weight):
+                            agent_cell = new_cell
+                            break
+
+        agent_pos =  agent_cell.get_position()
+        x = agent_pos[0]
+        y = agent_pos[1]
+        agent.x = x
+        agent.y = y
+        v.updateAgent(agent)
+        agent_weight = agent_cell.weight

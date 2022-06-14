@@ -55,7 +55,7 @@ def updateAgent(agent):
 
     startPoint = (lastAgentX * (wallLength + wallWidth) + cellDims / 2 , lastAgentY * (wallLength + wallWidth) + cellDims / 2)
     agentPoint = (agent.x * (wallLength + wallWidth) + cellDims / 2, agent.y * (wallLength + wallWidth) + cellDims / 2)
-    window["GRAPH"].draw_line(startPoint, agentPoint, color="red", width=playerDims/4)
+    window["GRAPH"].draw_line(startPoint, agentPoint, color="black", width=playerDims/4)
     window["GRAPH"].delete_figure(playerRef)
 
     lastAgentX = agent.x
@@ -93,7 +93,7 @@ def color_cells(maze):
             cell = window["GRAPH"].draw_rectangle(top_left, bottom_right, fill_color = color, line_width = 0)
 
     window["GRAPH"].bring_figure_to_front(playerRef)
-    window.read(3000)
+    window.read(1000)
 
 def to_hex(r, g, b):
     values = np.array([r,g,b])
