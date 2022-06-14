@@ -1,7 +1,28 @@
 import maze_detection.detect as d
+import controller.control as c
 import visualizer.visualize as v
 import solver.solve as s
 import solver.entities as nt
+import sys
+import os
+import csv
+import math
+
+#import visualizer.visualize as v
+
+def convert(path):
+    instructions = []
+    for move in path:
+        if move == 0:
+            instructions.append('f')
+        elif move == 1:
+            instructions.append('r')
+        elif move == -1:
+            instructions.append('l')
+        elif move == 2:
+            instructions.append('b')
+    return instructions
+
 
 if __name__ == "__main__":
 
@@ -25,6 +46,4 @@ if __name__ == "__main__":
 
 
     # Control
-    # c.move(actions)
-
-    0
+    c.move(p1)

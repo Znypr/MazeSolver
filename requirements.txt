@@ -1,2 +1,4 @@
 opencv-python
+python==3.5.3
+pygame==2.1.2
 rpyc==3.3.0

@@ -18,4 +18,7 @@ using -lib- to show agents actions and progress over time
 ### 🤖 Controlling MindStorm EV3 to navigate through maze
 give moving instructions to agent 
 
-: rpyc
+(host): mobaXterm (ssh connection to ev3), etcher (ev3 img flasher), ev3dev-stretch
+(ev3): rpyc (3.3.0), python (3.5.3)
+
+it is possible to automatically start the server when booting up the ev3 brick. However this is not done here, to be able to see the communication on mobaXterm

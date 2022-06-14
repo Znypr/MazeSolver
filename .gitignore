@@ -6,4 +6,12 @@ solver/__pycache__/entities.cpython-310.pyc
 solver/__pycache__/solve.cpython-310.pyc
 solver/__pycache__/entities.cpython-310.pyc
 solver/__pycache__/entities.cpython-310.pyc
-*.pyc
+.venv/Lib/site-packages/__pycache__/autopep8.cpython-310.pyc
+.venv/Lib/site-packages/__pycache__/autopep8.cpython-310.pyc
+.venv/Lib/site-packages/__pycache__/autopep8.cpython-310.pyc
+.venv/Lib/site-packages/__pycache__/pycodestyle.cpython-310.pyc
+.venv/Lib/site-packages/toml/__pycache__/__init__.cpython-310.pyc
+.venv/Lib/site-packages/toml/__pycache__/decoder.cpython-310.pyc
+.venv/Lib/site-packages/toml/__pycache__/encoder.cpython-310.pyc
+.venv/Lib/site-packages/toml/__pycache__/tz.cpython-310.pyc
+controller/__pycache__/control.cpython-35.pyc
