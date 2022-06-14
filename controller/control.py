@@ -2,6 +2,7 @@
 from ev3dev2.motor import LargeMotor, OUTPUT_B, OUTPUT_C, SpeedPercent, MoveTank
 from ev3dev2.sensor.lego import GyroSensor
 import rpyc
+import math
 
 print('Connecting to server...')
 conn = rpyc.classic.connect('ev3dev')  # host name or IP address of the EV3
@@ -13,8 +14,16 @@ left = ev3_motor.LargeMotor(ev3_motor.OUTPUT_B)
 right = ev3_motor.LargeMotor(ev3_motor.OUTPUT_C)
 
 base = ev3_motor.MoveTank(OUTPUT_B, OUTPUT_C)
-#base.gyro = GyroSensor()
+# base.gyro = GyroSensor()
 # base.gyro.calibrate()
+
+
+DIAMETER = 12.1
+WHEEL_RADIUS = 17.8
+
+
+def get_rotation_distance(degrees):
+    return math.pi * DIAMETER * degrees / 360 / WHEEL_RADIUS
 
 
 def forward():
@@ -26,27 +35,28 @@ def backward():
 
 
 def left_turn():
-    #base.turn_left(30, 90)
-    base.on_for_rotations(10, -10,  0.52)
+    base.on_for_rotations(10, -10,  get_rotation_distance(90))
 
 
 def right_turn():
-    #base.turn_right(30, 90)
-    base.on_for_rotations(-10, 10,  0.52)
+    base.on_for_rotations(-10, 10,  get_rotation_distance(90))
 
 
 def move(path):
+    for move in path:
 
-    for step in path:
-
-        if step == 'f':
+        if move == 'f':
             forward()
-        elif step == 'b':
+
+        elif move == 'b':
             backward()
-        elif step == 'l':
+
+        elif move == 'l':
             left_turn()
-        elif step == 'r':
+
+        elif move == 'r':
             right_turn()
+
         else:
             print('Invalid command')
             break

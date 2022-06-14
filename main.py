@@ -1,6 +1,7 @@
 import sys
 import os
 import csv
+import math
 
 import controller.control as c
 import maze_detection as d
@@ -8,6 +9,19 @@ import solver as s
 
 
 #import visualizer.visualize as v
+
+def convert(path):
+    instructions = []
+    for move in path:
+        if move == 0:
+            instructions.append('f')
+        elif move == 1:
+            instructions.append('r')
+        elif move == -1:
+            instructions.append('l')
+        elif move == 2:
+            instructions.append('b')
+    return instructions
 
 
 if __name__ == "__main__":
@@ -26,6 +40,6 @@ if __name__ == "__main__":
     # v.visualize(maze)
 
     # Control
-    path = ['r', 'r', 'f', 'l', 'l', 'f']
-
-    c.move(path)
+    p1 = convert([0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1])
+    p2 = convert([0,0,-1, 0,-1, 0])
+    c.move(p2)
