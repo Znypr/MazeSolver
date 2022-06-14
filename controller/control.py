@@ -3,18 +3,19 @@ from ev3dev2.sensor.lego import GyroSensor
 import rpyc
 import math
 
-print('Connecting to server...')
-conn = rpyc.classic.connect('ev3dev')  # host name or IP address of the EV3
-print('Connected.')
+def establish_connection():
 
-ev3_motor = conn.modules['ev3dev2.motor']
-ev3_sensor = conn.modules['ev3dev2.sensor.lego']
-left = ev3_motor.LargeMotor(ev3_motor.OUTPUT_B)
-right = ev3_motor.LargeMotor(ev3_motor.OUTPUT_C)
+    print('Connecting to server...')
+    conn = rpyc.classic.connect('ev3dev')  # host name or IP address of the EV3
+    print('Connected.')
 
-base = ev3_motor.MoveTank(OUTPUT_B, OUTPUT_C)
-# base.gyro = GyroSensor()
-# base.gyro.calibrate()
+    ev3_motor = conn.modules['ev3dev2.motor']
+    ev3_sensor = conn.modules['ev3dev2.sensor.lego']
+    left = ev3_motor.LargeMotor(ev3_motor.OUTPUT_B)
+    right = ev3_motor.LargeMotor(ev3_motor.OUTPUT_C)
+
+    base = ev3_motor.MoveTank(OUTPUT_B, OUTPUT_C)
+
 
 
 DIAMETER = 12.1
