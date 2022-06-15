@@ -74,7 +74,7 @@ def calculate_move(agent, i):
     elif(d_rot == 180): # turn right twice
         move = [1, 1, 0]
     elif(d_rot == 270): # turn left
-        move = [-1, 1]
+        move = [-1, 0]
 
     agent.rotation = (agent.rotation + d_rot) % 360
 
@@ -113,8 +113,6 @@ def escape_maze(maze, agent):
                     new_cell = cells[pos[0]][pos[1]]
                     if(new_cell.weight < agent_weight):
                         agent_cell = new_cell
-                        instructions = calculate_move(agent, i)
-                        c.move(convert(instructions))
                         break
             
 
@@ -125,3 +123,6 @@ def escape_maze(maze, agent):
         agent.y = y
         v.updateAgent(agent)
         agent_weight = agent_cell.weight
+
+        instructions = calculate_move(agent, i)
+        c.move(convert(instructions))
