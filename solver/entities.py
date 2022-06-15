@@ -61,9 +61,11 @@ class Maze:
 
 class Agent:
 
+    rotation = 0 # 0:360
     x = 0
     y = 0
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, rotation):
         self.x = x
         self.y = y
+        self.rotation = rotation

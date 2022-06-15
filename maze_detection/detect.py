@@ -1,7 +1,6 @@
 import cv2 as cv
 import numpy as np
 import sys
-sys.path.append('c:/Users/jonat/Documents/GitHub/MazeSolver')
 import solver.entities as nt
 
 def click_event(event, x, y, flags, params):
@@ -131,39 +130,33 @@ def calculateLabDims(imgBin):
 
     return (dimX, dimY)
 
-def detect_lab(filepath):
+def detect_lab(filepath, show):
     img = np.array(cv.imread(filepath))
     img = cv.resize(img, (int(img.shape[1]/2), int(img.shape[0]/2)), interpolation = cv.INTER_AREA)
 
     #show initial labyrinth
-    cv.imshow("image", img)
-    cv.setMouseCallback('image', click_event)
-    k = cv.waitKey(0)
+    cv.imshow("image", img); k = cv.waitKey(0) if show else None
 
     refPoints = np.array([(376, 42), (1221, 45), (310,719), (1281, 716)])
     img = correct_perspective(img, refPoints)
 
     #show labyrinth with corrected perspective
-    cv.imshow("image", img)
-    k = cv.waitKey(0)
+    cv.imshow("image", img); k = cv.waitKey(0) if show else None
 
     img = cv.medianBlur(img, 5)
 
     #show blurred image
-    cv.imshow("image", img)
-    k = cv.waitKey(0)
+    cv.imshow("image", img); k = cv.waitKey(0) if show else None
 
     imgBin = detect_walls(img)
 
     #show binary image of walls
-    cv.imshow("image", imgBin*255)
-    k = cv.waitKey(0)
+    cv.imshow("image", imgBin*255); k = cv.waitKey(0) if show else None
 
     imgBin = cv.medianBlur(imgBin, 9)
 
     #show blurred binary image of walls
-    cv.imshow("image", imgBin*255)
-    k = cv.waitKey(0)
+    cv.imshow("image", imgBin*255); k = cv.waitKey(0) if show else None
 
     dims = calculateLabDims(imgBin)
     print(dims)

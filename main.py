@@ -8,21 +8,6 @@ import os
 import csv
 import math
 
-
-def convert(path):
-    instructions = []
-    for move in path:
-        if move == 0:
-            instructions.append('f')
-        elif move == 1:
-            instructions.append('r')
-        elif move == -1:
-            instructions.append('l')
-        elif move == 2:
-            instructions.append('b')
-    return instructions
-
-
 if __name__ == "__main__":
 
     # Detection
@@ -34,8 +19,8 @@ if __name__ == "__main__":
     # Visualize
     # v.visualize(maze, pos, actions)
 
-    maze = d.detect_lab('media\images\maz3.jpg')
-    agent = nt.Agent(2, 0)
+    maze = d.detect_lab('media\images\maz3.jpg', False)
+    agent = nt.Agent(2, 0, 180)
 
     v.visualize(maze, agent)
     exits = s.find_exits(maze)
@@ -43,8 +28,3 @@ if __name__ == "__main__":
     s.set_lab_weights(maze, exits)
 
     s.escape_maze(maze, agent)
-    
-    # Control
-    #p1 = convert([0, 0, -1, 0])
-    # c.establish_connection()
-    # c.move(p1)

@@ -1,5 +1,6 @@
 import solver.entities as nt
 import visualizer.visualize as v
+import controller.control as c
 import numpy as np
 
 def find_exits(maze):
@@ -61,7 +62,41 @@ def set_lab_weights(maze, exits):
         weight += 1
         v.color_cells(maze)
     
+def calculate_move(agent, i):
+
+    move = []
+    d_rot = (i*90 - agent.rotation + 360) % 360
+
+    if(d_rot == 0): # straight
+        move = [0]
+    elif(d_rot == 90): # turn right
+        move = [1, 0]
+    elif(d_rot == 180): # turn right twice
+        move = [1, 1, 0]
+    elif(d_rot == 270): # turn left
+        move = [-1, 1]
+
+    agent.rotation = (agent.rotation + d_rot) % 360
+
+    return move
+
+def convert(path):
+    instructions = []
+    for move in path:
+        if move == 0:
+            instructions.append('f')
+        elif move == 1:
+            instructions.append('r')
+        elif move == -1:
+            instructions.append('l')
+        elif move == 2:
+            instructions.append('b')
+    return instructions
+
+
+
 def escape_maze(maze, agent):
+
     cells = maze.cells
 
     dims = maze.dim
@@ -74,13 +109,16 @@ def escape_maze(maze, agent):
     agent_weight = agent_cell.weight
 
     while(agent_weight > 1):
-        for i, pos in enumerate([(x-1,y),(x,y-1),(x+1,y),(x,y+1)]):
-                if(0 <= pos[0] < x_maze and 0 <= pos[1] < y_maze):
-                    if(agent_cell.left == False and i == 0 or agent_cell.up == False and i == 1 or agent_cell.right == False and i == 2 or agent_cell.down == False and i == 3):
-                        new_cell = cells[pos[0]][pos[1]]
-                        if(new_cell.weight < agent_weight):
-                            agent_cell = new_cell
-                            break
+        for i, pos in enumerate([(x,y-1),(x+1,y),(x,y+1),(x-1,y)]):
+            if(0 <= pos[0] < x_maze and 0 <= pos[1] < y_maze): # out of bounds check
+                if(agent_cell.up == False and i == 0 or agent_cell.right == False and i == 1 or agent_cell.down == False and i == 2 or agent_cell.left == False and i == 3): # legal move
+                    new_cell = cells[pos[0]][pos[1]]
+                    if(new_cell.weight < agent_weight):
+                        agent_cell = new_cell
+                        instructions = calculate_move(agent, i)
+                        c.move(convert(instructions))
+                        break
+            
 
         agent_pos =  agent_cell.get_position()
         x = agent_pos[0]

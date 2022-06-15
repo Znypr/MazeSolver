@@ -4,8 +4,7 @@ import math
 
 
 DIAMETER = 12.1
-WHEEL_RADIUS = 17.8
-
+WHEEL_RADIUS = 17.8 
 
 def establish_connection():
 
@@ -19,42 +18,44 @@ def establish_connection():
     right = ev3_motor.LargeMotor(ev3_motor.OUTPUT_C)
 
     base = ev3_motor.MoveTank(OUTPUT_B, OUTPUT_C)
+    return base
 
 
 def get_rotation_distance(degrees):
     return math.pi * DIAMETER * degrees / 360 / WHEEL_RADIUS
 
 
-def forward():
+def forward(base):
     base.on_for_rotations(20, 20, 1.8)
 
 
-def backward():
+def backward(base):
     base.on_for_rotations(-20, -20, 1.8)
 
 
-def left_turn():
+def left_turn(base):
     base.on_for_rotations(10, -10,  get_rotation_distance(90))
 
 
-def right_turn():
+def right_turn(base):
     base.on_for_rotations(-10, 10,  get_rotation_distance(90))
 
 
 def move(path):
+    base = establish_connection()
     for move in path:
 
         if move == 'f':
-            forward()
+            forward(base)
 
         elif move == 'b':
-            backward()
+            backward(base)
 
         elif move == 'l':
-            left_turn()
+            left_turn(base)
 
         elif move == 'r':
-            right_turn()
+            right_turn(base)
 
         else:
             print('Invalid command')
