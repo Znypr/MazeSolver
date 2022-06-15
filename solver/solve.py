@@ -93,8 +93,6 @@ def convert(path):
             instructions.append('b')
     return instructions
 
-
-
 def escape_maze(maze, agent):
 
     cells = maze.cells

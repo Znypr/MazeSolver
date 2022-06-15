@@ -1,5 +1,4 @@
 import maze_detection.detect as d
-import controller.control as c
 import visualizer.visualize as v
 import solver.solve as s
 import solver.entities as nt
