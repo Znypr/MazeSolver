@@ -1,6 +1,7 @@
+import sys
 import cv2 as cv
 import numpy as np
-import sys
+
 import solver.entities as nt
 
 def click_event(event, x, y, flags, params):
@@ -130,17 +131,17 @@ def calculateLabDims(imgBin):
 
     return (dimX, dimY)
 
-def detect_lab(filepath, show):
+def detect_maze(filepath, show):
     img = np.array(cv.imread(filepath))
     img = cv.resize(img, (int(img.shape[1]/2), int(img.shape[0]/2)), interpolation = cv.INTER_AREA)
 
-    #show initial labyrinth
+    #show initial maze
     cv.imshow("image", img); k = cv.waitKey(0) if show else None
 
     refPoints = np.array([(376, 42), (1221, 45), (310,719), (1281, 716)])
     img = correct_perspective(img, refPoints)
 
-    #show labyrinth with corrected perspective
+    #show maze with corrected perspective
     cv.imshow("image", img); k = cv.waitKey(0) if show else None
 
     img = cv.medianBlur(img, 5)
@@ -159,7 +160,7 @@ def detect_lab(filepath, show):
     cv.imshow("image", imgBin*255); k = cv.waitKey(0) if show else None
 
     dims = calculateLabDims(imgBin)
-    print(dims)
+    #print(dims)
 
     cells = np.empty(dims, dtype=object)
 
@@ -167,7 +168,7 @@ def detect_lab(filepath, show):
     cellWidth = imgBin.shape[1] / dims[0]
     cellHeight = imgBin.shape[0] / dims[1]
 
-    print(cellWidth, cellHeight)
+    #print(cellWidth, cellHeight)
 
     #run through all cells and look at their middle point in the image
     for i in range(dims[1]):
@@ -203,6 +204,4 @@ def detect_lab(filepath, show):
 
             cells[j, i] = nt.Cell(topWall, rightWall, bottomWall, leftWall, j, i)
 
-    maze = nt.Maze(dims, cells)
-
-    return maze
+    return nt.Maze(dims, cells)
