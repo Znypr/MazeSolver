@@ -1,7 +1,8 @@
+import numpy as np
+
 import solver.entities as nt
 import visualizer.visualize as v
 import controller.control as c
-import numpy as np
 
 def find_exits(maze):
     cells = maze.cells

@@ -47,8 +47,6 @@ class Exit:
         self.down = exits[2]
         self.left = exits[3]
 
-
-
 class Maze:
 
     dim = [0, 0]
@@ -57,7 +55,6 @@ class Maze:
     def __init__(self, dim, cells):
         self.dim = dim
         self.cells = cells
-
 
 class Agent:
 

@@ -104,8 +104,3 @@ def to_hex(r, g, b):
     for value in values:
         output += hex[int(value/16)] + hex[int(value%16)]
     return output
-
-
-
-
-        
