@@ -32,3 +32,12 @@ After installing anaconda, create a new environment using:
 Now navigate into the project "/MazeSolver" (`cd */MazeSolver`) and  run the command `pip install -r requirements.txt` to automatically install all required libaries.
 
 To run the program, make sure a birds-eye-view picture of a maze is in the `/input` folder. Next boot the ev3 brick and pair it via Bluetooth with the HOst PC, then start mobaxterm to run `bash rpyc_server.sh`. After the server started, run the main python script using `python main.py`
+
+
+### Paper
+ 
+Install biber and texmaker with MikTex:
+https://miktex.org/download
+
+After a change use `pdflatex paper.tex`to rebuild pfd file. Working directory has to be `/MazeSolver/paper/tex`.
+
