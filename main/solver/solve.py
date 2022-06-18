@@ -94,7 +94,7 @@ def convert(path):
             instructions.append('b')
     return instructions
 
-def escape_maze(maze, agent):
+def escape_maze(maze, agent, simulate):
 
     cells = maze.cells
 
@@ -126,4 +126,4 @@ def escape_maze(maze, agent):
         agent_weight = agent_cell.weight
 
         instructions = calculate_move(agent, i)
-        c.move(convert(instructions))
+        c.move(convert(instructions)) if not simulate else None
