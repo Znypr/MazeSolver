@@ -135,40 +135,41 @@ def detect_maze(filepath, show):
     img = np.array(cv.imread(filepath))
     img = cv.resize(img, (int(img.shape[1]/2), int(img.shape[0]/2)), interpolation = cv.INTER_AREA)
 
-    #show initial maze
+    # show initial maze
     cv.imshow("image", img); k = cv.waitKey(0) if show else None
 
     refPoints = np.array([(376, 42), (1221, 45), (310,719), (1281, 716)])
+
+    # correct perspective of the maze
     img = correct_perspective(img, refPoints)
-
-    #show maze with corrected perspective
     cv.imshow("image", img); k = cv.waitKey(0) if show else None
+    cv.imwrite("output/rectified.jpg", img)
 
+
+    # blurring image
     img = cv.medianBlur(img, 5)
-
-    #show blurred image
     cv.imshow("image", img); k = cv.waitKey(0) if show else None
+    cv.imwrite("output/blurred.jpg", img)
 
+
+    # convert to binary image
     imgBin = detect_walls(img)
-
-    #show binary image of walls
     cv.imshow("image", imgBin*255); k = cv.waitKey(0) if show else None
+    cv.imwrite("output/binary.jpg", imgBin*255)
 
+
+    # blurring binary image
     imgBin = cv.medianBlur(imgBin, 9)
-
-    #show blurred binary image of walls
     cv.imshow("image", imgBin*255); k = cv.waitKey(0) if show else None
+    cv.imwrite("output/blurred_binary.jpg", imgBin*255)
 
     dims = calculateLabDims(imgBin)
-    #print(dims)
 
     cells = np.empty(dims, dtype=object)
 
     #calculate how large the cells are by dividing the image dimensions by the number of cells
     cellWidth = imgBin.shape[1] / dims[0]
     cellHeight = imgBin.shape[0] / dims[1]
-
-    #print(cellWidth, cellHeight)
 
     #run through all cells and look at their middle point in the image
     for i in range(dims[1]):
