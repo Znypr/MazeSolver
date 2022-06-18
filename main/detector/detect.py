@@ -136,32 +136,33 @@ def detect_maze(filepath, show):
     img = cv.resize(img, (int(img.shape[1]/2), int(img.shape[0]/2)), interpolation = cv.INTER_AREA)
 
     # show initial maze
-    cv.imshow("image", img); k = cv.waitKey(0) if show else None
+    cv.imshow("image", img); cv.waitKey(0); cv.destroyAllWindows()
 
     refPoints = np.array([(376, 42), (1221, 45), (310,719), (1281, 716)])
 
     # correct perspective of the maze
     img = correct_perspective(img, refPoints)
-    cv.imshow("image", img); k = cv.waitKey(0) if show else None
+    if show: cv.imshow("rectified image of {}".format(filepath), img); cv.waitKey(0); cv.destroyAllWindows()
     cv.imwrite("output/rectified.jpg", img)
 
 
     # blurring image
     img = cv.medianBlur(img, 5)
-    cv.imshow("image", img); k = cv.waitKey(0) if show else None
+    if show: cv.imshow("blurred image of {}".format(filepath), img); cv.waitKey(0); cv.destroyAllWindows()
     cv.imwrite("output/blurred.jpg", img)
 
 
     # convert to binary image
     imgBin = detect_walls(img)
-    cv.imshow("image", imgBin*255); k = cv.waitKey(0) if show else None
+    if show: cv.imshow("binary image of {}".format(filepath), imgBin*255); cv.waitKey(0); cv.destroyAllWindows()
     cv.imwrite("output/binary.jpg", imgBin*255)
 
 
     # blurring binary image
     imgBin = cv.medianBlur(imgBin, 9)
-    cv.imshow("image", imgBin*255); k = cv.waitKey(0) if show else None
+    if show: cv.imshow("blurred binary image of {}".format(filepath), imgBin*255); cv.waitKey(0); cv.destroyAllWindows()
     cv.imwrite("output/blurred_binary.jpg", imgBin*255)
+
 
     dims = calculateLabDims(imgBin)
 
