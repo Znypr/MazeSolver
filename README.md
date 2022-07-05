@@ -20,7 +20,7 @@ Used libraries:
 (host): mobaXterm (ssh connection to ev3), etcher (ev3 img flasher), ev3dev-stretch, evdev2
 (ev3): rpyc (3.3.0), python (3.5.3)
 
-### Setup
+### :computer: Setup
 For convenience, we advise to use Conda Virtual Environments.
 After installing anaconda, create a new environment using:
 `conda create -n <env-name> python=3.5` and activate it using `conda activate <env-name>`.
