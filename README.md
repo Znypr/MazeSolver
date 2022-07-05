@@ -1,19 +1,19 @@
 # Maze Navigator 
 In this project we calculate the escape path of a given 3D maze for a robot.
 
-### 📷 Detection of 3D-Maze (/detector)
+### 📷 Detection of 3D-Maze (`/detector`)
 Pictures of a 3D maze from the bottom down perspective are used to then generate maze object, which saves information about shape and structure of the maze. 
 
 
-### 🧠 Solving maze using reinforcement learning (/solver)
+### 🧠 Solving maze using reinforcement learning (`/solver`)
 Calculate escape path for current maze for the agents current position using a deterministic reinforcement learning alorithm.
 
 
-### 📈 Visualisation of maze and learning progress (/visualizer)
+### 📈 Visualisation of maze and learning progress (`/visualizer`)
 Uses PySimpleGUI to graphically represent the detected maze and the position of the agent. Also shows the attractiveness of the cells using coloring and the direct path to take.
 
 
-### 🤖 Controlling MindStorm EV3 (/controller)
+### 🤖 Controlling MindStorm EV3 (`/controller`)
 Establishes a Bluetooth connection between a host PC and the EV3 to then send moving instructions.
 
 Used libraries:
