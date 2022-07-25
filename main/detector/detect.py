@@ -136,7 +136,7 @@ def find_corners(img):
     th, img_cont = cv.threshold(img_cont,0,255,cv.THRESH_BINARY+cv.THRESH_OTSU)
     cv.imshow("image", img_cont); cv.waitKey(0); cv.destroyAllWindows()
     k1 = np.ones((50,50),np.uint8)
-    k2 = np.ones((45,45),np.uint8)
+    k2 = np.ones((40,40),np.uint8)
     k3 = np.ones((20,20),np.uint8)
     img_cont = cv.dilate(img_cont,k1,iterations = 1)
     img_cont = cv.copyMakeBorder(img_cont, top = 1, bottom = 1, left = 1, right = 1, borderType = cv.BORDER_CONSTANT, value = 0)
@@ -189,12 +189,8 @@ def detect_maze(filepath, show):
     if show: cv.imshow("rectified image of {}".format(filepath), img); cv.waitKey(0); cv.destroyAllWindows()
     cv.imwrite("output/rectified.jpg", img)
 
-
-    # blurring image
-    img = cv.medianBlur(img, 5)
-    if show: cv.imshow("blurred image of {}".format(filepath), img); cv.waitKey(0); cv.destroyAllWindows()
-    cv.imwrite("output/blurred.jpg", img)
-
+    imgEdge = cv.Canny(img)
+    if show: cv.imshow("rectified image of {}".format(filepath), imgEdge); cv.waitKey(0); cv.destroyAllWindows()
 
     # convert to binary image
     imgBin = detect_walls(img)
