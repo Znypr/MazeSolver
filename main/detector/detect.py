@@ -131,14 +131,51 @@ def calculateLabDims(imgBin):
 
     return (dimX, dimY)
 
+def find_corners(img):
+    img_cont = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+    th, img_cont = cv.threshold(img_cont,0,255,cv.THRESH_BINARY+cv.THRESH_OTSU)
+    cv.imshow("image", img_cont); cv.waitKey(0); cv.destroyAllWindows()
+    k1 = np.ones((50,50),np.uint8)
+    k2 = np.ones((20,20),np.uint8)
+    img_cont = cv.morphologyEx(img_cont, cv.MORPH_CLOSE, k1)
+    cv.imshow("image", img_cont); cv.waitKey(0); cv.destroyAllWindows()
+    img_cont = cv.morphologyEx(img_cont, cv.MORPH_OPEN, k2)
+    cv.imshow("image", img_cont); cv.waitKey(0); cv.destroyAllWindows()
+
+    contours, _ = cv.findContours(img_cont, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
+    hull = cv.convexHull(contours[0])
+
+    img_hull = np.zeros(img_cont.shape, np.uint8)
+    img_hull = cv.cvtColor(img_hull, cv.COLOR_GRAY2BGR)
+    cv.drawContours(img_hull, [hull], -1, (0, 255, 255), 2)
+    cv.imshow("image", img_hull); cv.waitKey(0); cv.destroyAllWindows()
+
+    img_hull = cv.cvtColor(img_hull, cv.COLOR_BGR2GRAY)
+    cv.imshow("image", img_hull); cv.waitKey(0); cv.destroyAllWindows()
+
+    img_hull_bin = img_hull != 0
+
+    corners = cv.goodFeaturesToTrack(img_hull, 4, 0.5, 50)
+
+    img_cont = cv.cvtColor(img_cont, cv.COLOR_GRAY2BGR)
+    for corner in corners:
+        c = corner[0]
+        img_cont = cv.circle(img_cont, (c[0], c[1]), radius=2, color = (0,0,255), thickness = 1)
+    cv.imshow("image", img_cont); cv.waitKey(0); cv.destroyAllWindows()
+
+    
+        
+
 def detect_maze(filepath, show):
     img = np.array(cv.imread(filepath))
-    img = cv.resize(img, (int(img.shape[1]/2), int(img.shape[0]/2)), interpolation = cv.INTER_AREA)
+    res_ratio = 750/img.shape[0]
+    img = cv.resize(img, (int(img.shape[1] * res_ratio), int(img.shape[0] * res_ratio)), interpolation = cv.INTER_AREA)
 
     # show initial maze
     cv.imshow("image", img); cv.waitKey(0); cv.destroyAllWindows()
 
-    refPoints = np.array([(376, 42), (1221, 45), (310,719), (1281, 716)])
+    refPoints = find_corners(img)
+    #refPoints = np.array([(376, 42), (1221, 45), (310,719), (1281, 716)])
 
     # correct perspective of the maze
     img = correct_perspective(img, refPoints)
