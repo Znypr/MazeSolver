@@ -16,18 +16,23 @@ def main():
     # Parse arguments
     parser = argparse.ArgumentParser(description='Solve a maze')
     parser.add_argument('-c', '--control', help='flag if robot should be controlled', action='store_true')
-    parser.add_argument('-v', '--visualize', help='flag if detection steps should be visualized', action='store_true')
+    parser.add_argument('-v', '--visualize', help='flag if detection steps should be visualized', action='store_true', default=True)
     args = parser.parse_args()
 
     # Connection
     c.establish_connection() if args.control else None
 
-    for maze in glob.glob('input/maze_1.jpg'):
+    for maze in glob.glob('input/*.jpg'):
 
         print('\n     Current Maze to be solved: {}\n\n'.format(maze))
 
         # Detection
-        maze = d.detect_maze(maze, args.visualize) # flag for visualizing images
+        try:
+            maze = d.detect_maze(maze, args.visualize) # flag for visualizing images
+        except Exception as e:
+            print('\n     Error: {}\n'.format(e))
+            continue
+
         agent = nt.Agent(2, 0, 180) # x,y,rotation
 
         # Visualize
