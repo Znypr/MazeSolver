@@ -136,10 +136,13 @@ def find_corners(img):
     th, img_cont = cv.threshold(img_cont,0,255,cv.THRESH_BINARY+cv.THRESH_OTSU)
     cv.imshow("image", img_cont); cv.waitKey(0); cv.destroyAllWindows()
     k1 = np.ones((50,50),np.uint8)
-    k2 = np.ones((20,20),np.uint8)
-    img_cont = cv.morphologyEx(img_cont, cv.MORPH_CLOSE, k1)
+    k2 = np.ones((45,45),np.uint8)
+    k3 = np.ones((20,20),np.uint8)
+    img_cont = cv.dilate(img_cont,k1,iterations = 1)
+    img_cont = cv.copyMakeBorder(img_cont, top = 1, bottom = 1, left = 1, right = 1, borderType = cv.BORDER_CONSTANT, value = 0)
+    img_cont = cv.erode(img_cont,k2,iterations = 1)
     cv.imshow("image", img_cont); cv.waitKey(0); cv.destroyAllWindows()
-    img_cont = cv.morphologyEx(img_cont, cv.MORPH_OPEN, k2)
+    img_cont = cv.morphologyEx(img_cont, cv.MORPH_OPEN, k3)
     cv.imshow("image", img_cont); cv.waitKey(0); cv.destroyAllWindows()
 
     contours, _ = cv.findContours(img_cont, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
@@ -151,17 +154,20 @@ def find_corners(img):
     cv.imshow("image", img_hull); cv.waitKey(0); cv.destroyAllWindows()
 
     img_hull = cv.cvtColor(img_hull, cv.COLOR_BGR2GRAY)
-    cv.imshow("image", img_hull); cv.waitKey(0); cv.destroyAllWindows()
-
     img_hull_bin = img_hull != 0
 
     corners = cv.goodFeaturesToTrack(img_hull, 4, 0.5, 50)
 
     img_cont = cv.cvtColor(img_cont, cv.COLOR_GRAY2BGR)
+
+    cornerPoints = []
     for corner in corners:
         c = corner[0]
         img_cont = cv.circle(img_cont, (c[0], c[1]), radius=2, color = (0,0,255), thickness = 1)
+        cornerPoints.append((int(c[0]),int(c[1])))
     cv.imshow("image", img_cont); cv.waitKey(0); cv.destroyAllWindows()
+
+    return np.array(cornerPoints)
 
     
         
@@ -175,6 +181,7 @@ def detect_maze(filepath, show):
     cv.imshow("image", img); cv.waitKey(0); cv.destroyAllWindows()
 
     refPoints = find_corners(img)
+    print(refPoints)
     #refPoints = np.array([(376, 42), (1221, 45), (310,719), (1281, 716)])
 
     # correct perspective of the maze

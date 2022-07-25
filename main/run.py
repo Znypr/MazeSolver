@@ -22,7 +22,7 @@ def main():
     # Connection
     c.establish_connection() if args.control else None
 
-    for maze in glob.glob('input/maze_5.jpg'):
+    for maze in glob.glob('input/maze_1.jpg'):
 
         print('\n     Current Maze to be solved: {}\n\n'.format(maze))
 
