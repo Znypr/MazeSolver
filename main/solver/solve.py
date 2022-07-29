@@ -87,9 +87,9 @@ def convert(path):
         if move == 0:
             instructions.append('f')
         elif move == 1:
-            instructions.append('r')
+            instructions.append('rR')
         elif move == -1:
-            instructions.append('l')
+            instructions.append('lR')
         elif move == 2:
             instructions.append('b')
     return instructions
@@ -106,7 +106,7 @@ def escape_maze(maze, agent, control):
     y = agent.y
     agent_cell = cells[x][y]
     agent_weight = agent_cell.weight
-
+    i=0
     while(agent_weight > 1):
         for i, pos in enumerate([(x,y-1),(x+1,y),(x,y+1),(x-1,y)]):
             if(0 <= pos[0] < x_maze and 0 <= pos[1] < y_maze): # out of bounds check
@@ -126,5 +126,6 @@ def escape_maze(maze, agent, control):
         agent_weight = agent_cell.weight
 
         instructions = calculate_move(agent, i)
-        print(convert(instructions))
+        print('t{} = '.format(i), convert(instructions))
         c.move(convert(instructions)) if control else None
+        i+=1

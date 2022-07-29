@@ -52,10 +52,10 @@ def move(path):
         elif move == 'b':
             backward()
 
-        elif move == 'l':
+        elif move == 'lR':
             left_turn()
 
-        elif move == 'r':
+        elif move == 'rR':
             right_turn()
 
         else:

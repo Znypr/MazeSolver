@@ -22,7 +22,7 @@ def main():
     # Connection
     c.establish_connection() if args.control else None
 
-    for maze in glob.glob('input/*0.jpg'):
+    for maze in glob.glob('input/*.jpg'):
 
         print('\n     Current Maze to be solved: {}\n\n'.format(maze))
 
@@ -43,7 +43,8 @@ def main():
         s.set_lab_weights(maze, exits)
         s.escape_maze(maze, agent, args.control)
 
-        if  input('Do you want to continue? (y/n)') == 'n':
+        if  input('\n
+        Do you want to continue? (y/n)') == 'n':
             break
     
     print('\nAll mazes have been solved!')
