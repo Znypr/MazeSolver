@@ -126,4 +126,5 @@ def escape_maze(maze, agent, control):
         agent_weight = agent_cell.weight
 
         instructions = calculate_move(agent, i)
+        print(convert(instructions))
         c.move(convert(instructions)) if control else None

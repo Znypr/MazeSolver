@@ -15,7 +15,7 @@ def main():
 
     # Parse arguments
     parser = argparse.ArgumentParser(description='Solve a maze')
-    parser.add_argument('-c', '--control', help='flag if robot should be controlled', action='store_true')
+    parser.add_argument('-c', '--control', help='flag if robot should be controlled', action='store_true', default=False)
     parser.add_argument('-v', '--visualize', help='flag if detection steps should be visualized', action='store_true', default=True)
     args = parser.parse_args()
 
