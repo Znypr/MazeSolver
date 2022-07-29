@@ -180,17 +180,17 @@ def detect_maze(filepath, show):
     # show initial maze
     cv.imshow("image", img); cv.waitKey(0); cv.destroyAllWindows()
 
-    refPoints = find_corners(img)
-    print(refPoints)
-    #refPoints = np.array([(376, 42), (1221, 45), (310,719), (1281, 716)])
+    """ refPoints = find_corners(img)
+    print(refPoints) """
+    refPoints = np.array([(376, 42), (1221, 45), (310,719), (1281, 716)])
 
     # correct perspective of the maze
     img = correct_perspective(img, refPoints)
     if show: cv.imshow("rectified image of {}".format(filepath), img); cv.waitKey(0); cv.destroyAllWindows()
     cv.imwrite("output/rectified.jpg", img)
 
-    imgEdge = cv.Canny(img)
-    if show: cv.imshow("rectified image of {}".format(filepath), imgEdge); cv.waitKey(0); cv.destroyAllWindows()
+    """ imgEdge = cv.Canny(img)
+    if show: cv.imshow("rectified image of {}".format(filepath), imgEdge); cv.waitKey(0); cv.destroyAllWindows() """
 
     # convert to binary image
     imgBin = detect_walls(img)
